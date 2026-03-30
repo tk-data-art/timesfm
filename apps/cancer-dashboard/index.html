@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Global Cancer Intelligence Dashboard</title>
+    <meta
+      name="description"
+      content="Interactive cancer dashboard using official WHO, IARC/GLOBOCAN, and national health sources."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" defer></script>
+    <script type="module" src="./app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero card">
+        <div>
+          <p class="eyebrow">WHO + IARC / GLOBOCAN cancer analytics</p>
+          <h1>Global cancer intelligence dashboard</h1>
+          <p class="hero-copy">
+            Explore curated country snapshots built from the latest official releases in the bundled dataset, compare mortality patterns, and drill into region-level detail where national portals publish subnational records.
+          </p>
+        </div>
+        <div class="hero-note">
+          <h3>Data scope</h3>
+          <p id="data-scope-note"></p>
+          <ul>
+            <li>Global totals based on WHO and IARC summaries.</li>
+            <li>Country records reference official fact sheets and national portals.</li>
+            <li>Missing geographies stay visible on the map and degrade gracefully.</li>
+          </ul>
+        </div>
+      </header>
+
+      <section class="kpi-grid" id="kpi-grid"></section>
+
+      <section class="controls-card card">
+        <label class="search-box">
+          <span>Search country</span>
+          <input id="search-input" placeholder="Type a country name" />
+        </label>
+        <label>
+          <span>Cancer type</span>
+          <select id="cancer-type-filter"></select>
+        </label>
+        <label>
+          <span>Year</span>
+          <select id="year-filter"></select>
+        </label>
+        <label>
+          <span>Gender</span>
+          <select id="gender-filter">
+            <option>All</option>
+            <option>Female</option>
+            <option>Male</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="layout-grid">
+        <div class="card map-card">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Global cancer map</p>
+              <h2>Choropleth by mortality rate</h2>
+            </div>
+            <div class="legend">
+              <span><i class="low"></i>Low</span>
+              <span><i class="medium"></i>Medium</span>
+              <span><i class="high"></i>High</span>
+            </div>
+          </div>
+          <div id="world-map" class="plot"></div>
+          <p class="muted small">
+            Hover a country for a quick summary, then click to update detailed KPIs, trend lines, cancer-type mix, and region-level views where official subnational data is bundled.
+          </p>
+        </div>
+        <aside class="card ranking-card">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Top 10 countries</p>
+              <h2>Most affected in bundled data</h2>
+            </div>
+          </div>
+          <ol id="top-ten-list"></ol>
+        </aside>
+      </section>
+
+      <section class="details-grid">
+        <div class="card details-card">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Country dashboard</p>
+              <h2 id="country-name"></h2>
+            </div>
+            <span id="risk-pill" class="pill"></span>
+          </div>
+          <div class="stats-grid" id="country-stats"></div>
+          <div class="comparison-strip" id="comparison-strip"></div>
+          <div class="source-list" id="country-sources"></div>
+        </div>
+
+        <div class="card chart-card">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Trend view</p>
+              <h2>Cases vs deaths</h2>
+            </div>
+          </div>
+          <div id="trend-chart" class="plot"></div>
+        </div>
+
+        <div class="card chart-card">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Cancer type insights</p>
+              <h2>Share of top cancers</h2>
+            </div>
+          </div>
+          <div id="cancer-type-chart" class="plot"></div>
+        </div>
+
+        <div class="card chart-card">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">State / region analysis</p>
+              <h2 id="region-title"></h2>
+            </div>
+          </div>
+          <div id="region-chart" class="plot"></div>
+          <p id="region-empty" class="muted hidden">Add subnational records to the dataset to unlock drill-down analytics for this country.</p>
+        </div>
+      </section>
+
+      <footer class="footer-note">
+        <p>
+          Sources include WHO cancer fact sheets, IARC / Global Cancer Observatory country fact sheets, and official national portals referenced inside each country card. Regional breakdowns are shown only where bundled official subnational records are available.
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

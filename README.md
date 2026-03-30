@@ -110,3 +110,8 @@ point_forecast, quantile_forecast = model.forecast(
 point_forecast.shape  # (2, 12)
 quantile_forecast.shape  # (2, 12, 10): mean, then 10th to 90th quantiles.
 ```
+
+
+## Front-end demo app
+
+This repository now also includes a standalone front-end demo for interactive global cancer visualization in `apps/cancer-dashboard`. See `apps/cancer-dashboard/README.md` for setup, features, and data-source notes.
